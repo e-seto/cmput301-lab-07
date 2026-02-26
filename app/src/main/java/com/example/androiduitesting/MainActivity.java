@@ -2,8 +2,10 @@ package com.example.androiduitesting;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
@@ -64,5 +66,27 @@ public class MainActivity extends AppCompatActivity {
                 cityAdapter.clear();
             }
         });
+
+        /* adapted from lab 3 */
+        cityList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                /*
+                The following code is adapted from...
+                Author: user914425 https://stackoverflow.com/users/914425/user914425
+                Editor: SpiritCrusher https://stackoverflow.com/users/4168607/spiritcrusher
+                Title: "How do I pass data between Activities in Android application?"
+                Answer: https://stackoverflow.com/a/7325248
+                Date: 2011-09-06 (edited: 2018-03-25)
+                Retrieved: 2026-02-24
+                License: CC-BY-SA 3.0
+                */
+                String cityName = cityAdapter.getItem(position);
+                Intent intent = new Intent(MainActivity.this, ShowActivity.class);
+                intent.putExtra("cityName", cityName);
+                startActivity(intent);
+            }
+        });
+
     }
 }
